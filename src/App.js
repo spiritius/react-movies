@@ -6,7 +6,7 @@ import { Preloader } from './components/Preloader';
 
 
 const APIKEY = process.env.REACT_APP_APIKEY;
-const API = `http://www.omdbapi.com/?apikey=${APIKEY}&s=`;
+const API = `https://www.omdbapi.com/?apikey=${APIKEY}&s=`;
 const QUERY = 'star wars';
 
 export default class App extends React.Component {
@@ -57,7 +57,7 @@ export default class App extends React.Component {
 		return (<>
 			<Header />
 				{
-					(isLoading) ? (
+					(isLoading && !error) ? (
 						<Preloader />
 					) : (
 						<Main movies={movies} query={query} type={type} handleSearch={this.handleSearch} />

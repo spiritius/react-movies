@@ -47,7 +47,7 @@ class Search extends React.Component {
 				</div>
 				<div className="radio-row">
 					<label>
-						<input name="type" type="radio" value="all"
+						<input name="type" type="radio" value=""
 							checked={
 								type === ''
 							}
