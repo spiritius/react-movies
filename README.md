@@ -6,6 +6,8 @@
 
 Практика работы с классовыми и stateless компонентами, fetch к OMDB API, публикация на git-hub pages.
 
+[Демо](https://spiritius.github.io/react-movies/)
+
 ## Команды
 
 * `npm start`
