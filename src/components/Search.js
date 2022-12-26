@@ -1,93 +1,64 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-class Search extends React.Component {
-	constructor(props) {
-		super();
+const Search = (props) => {
+	const {
+		handleSearch = Function.prototype,
+	} = props;
 
-		this.state = {
-			search: '',
-			type: ''
-		}
-	}
+	const [search, setSearch] = useState('');
+	const [type, setType] = useState('');
 
-	componentDidMount() {
-		this.setState({
-			search: this.props.query,
-			type: this.props.type,
-		});
-	}
 
-	handleType = e => {
-		this.setState({[e.target.name]: e.target.value})
-	}
-
-	handlerSubmit = e => {
-		this.props.handleSearch(this.state.search, this.state.type);
+	const handlerSubmit = e => {
+		handleSearch(search, type);
 		e.preventDefault();
 	}
 
-	render() {
-		const {search, type} = this.state;
+	useEffect(() => {
+		setSearch(props.query);
+		setType(props.type);
+	}, [props.query, props.type]);
 
-		return (
-			<form onSubmit={
-				this.handlerSubmit
-			}>
-				<div className="search-row">
-					<div className="input-field">
-						<input placeholder="Search"
-							value={search}
-							type="text"
-							className="validate"
-							onChange={
-								(e) => this.setState({search: e.target.value})
-							}/>
-					</div>
-					<button className="btn search-btn" type="submit">Search</button>
+	return (
+		<form onSubmit={handlerSubmit}>
+			<div className="search-row">
+				<div className="input-field">
+					<input placeholder="Search"
+						value={search}
+						type="text"
+						className="validate"
+						onChange={(e) => setSearch(e.target.value)}/>
 				</div>
-				<div className="radio-row">
-					<label>
-						<input name="type" type="radio" value=""
-							checked={
-								type === ''
-							}
-							onChange={
-								e => this.handleType(e)
-							}
-							disabled={search === ''}
-							/>
-						<span>All</span>
-					</label>
-					<label>
-						<input name="type" type="radio" value="movie"
-							checked={
-								type === 'movie'
-							}
-							onChange={
-								e => this.handleType(e)
-							}
-							disabled={search === ''}
-							/>
-						<span>Movies</span>
-					</label>
-					<label>
-						<input name="type" type="radio" value="series"
-							checked={
-								type === 'series'
-							}
-							onChange={
-								e => this.handleType(e)
-							}
-							disabled={search === ''}
-							/>
-						<span>Series</span>
-					</label>
-				</div>
-			</form>
-		)
-	}
+				<button className="btn search-btn" type="submit">Search</button>
+			</div>
+			<div className="radio-row">
+				<label>
+					<input name="type" type="radio" value=""
+						checked={type === ''}
+						onChange={(e) => setType(e.target.value)}
+						disabled={search === ''}
+						/>
+					<span>All</span>
+				</label>
+				<label>
+					<input name="type" type="radio" value="movie"
+						checked={type === 'movie'}
+						onChange={(e) => setType(e.target.value)}
+						disabled={search === ''}
+						/>
+					<span>Movies</span>
+				</label>
+				<label>
+					<input name="type" type="radio" value="series"
+						checked={type === 'series'}
+						onChange={(e) => setType(e.target.value)}
+						disabled={search === ''}
+						/>
+					<span>Series</span>
+				</label>
+			</div>
+		</form>
+	)
 }
 
-export {
-	Search
-};
+export {Search};
